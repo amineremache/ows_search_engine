@@ -111,13 +111,15 @@
         <v-container fill-height>
           <v-layout>
             <v-flex md8 offset-md2 >
-
-              <p>  Insérez la classe que vous cherchez et vous trouverez la liste des individus : </p>
-
               <vue-position-sticky :offset-Top="tbh">
                 <v-card class="pa-3" elevation=24>
                   <v-autocomplete v-model="token" :items="choices" label="Requete" color="#FFEB3B" append-icon="close" :append-icon-cb="clear_token">
                   </v-autocomplete>
+                  <v-combobox
+                    v-model="criteria"
+                    :items="criterias"
+                    label="Critère"
+                  ></v-combobox>
                   <v-layout>
                     <v-spacer></v-spacer>
                     <v-btn light @click="describe_token">Rechercher</v-btn>
@@ -127,12 +129,11 @@
               </vue-position-sticky>
 
               <div class="mt-0" v-if="description.length != 0">
-                <p class="mt-4"> Les individus de "{{token}}" sont :</p>
-                <v-card class="pa-2 my-2 " v-for="d in description">
+                <v-card class="pa-2 my-2 " v-for="item in description">
                   <v-layout align-center justify-space-around row fill-height>
-                    <div class="width75 text-md-right">{{d.document}}</div>
-                    <div class="width75">Année: {{d.year}} </div>
-                    <div class="width75 text-md-left">Artiste: {{d.artist}} </div>
+                    <div class="width75 text-md-right">Nom: {{item.name}}</div>
+                    <div class="width75">Genre: {{item.genre}} </div>
+                    <div class="width75 text-md-left">Artiste: {{item.artist}} </div>
                   </v-layout>
                 </v-card>
               </div>
@@ -152,22 +153,19 @@
 	data: {
 		tab: 1,
 		tbh: 64,
-		token: "",
+		token: "None",
     choices: [ {% for item in list %} '{{item}}', {% endfor %} ],
-		description: [ ],
+    criteria: 'None',
+    criterias: [ {% for c in criterias %} '{{c}}', {% endfor %} ],
+    description: [ {% for item in albums %} { 'name': '{{item.0}}', 'genre': '{{item.1}}', 'artist': '{{item.2}}' }, {% endfor %} ],  
 	},
 	methods: {
 		select_tab: function(selected) {
 			this.tab = selected;
 		},
 		describe_token: function(){
-            this.description = [{
-                    "document":"Madison Twist",
-                    "year":1962,
-                    "artist":"Johnny Hallyday",
-                },
-            ];
-		},
+            window.location = "/engine/search/"+this.criteria+"/"+this.token+"/";
+    },
 		clear_token: function() {
 			this.token = "";
 			this.description = [ ];

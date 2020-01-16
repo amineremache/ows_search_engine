@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'engine',
     'rdflib',
     'rdflib_django',
+    'rdfextras',
 ]
 
 MIDDLEWARE = [
