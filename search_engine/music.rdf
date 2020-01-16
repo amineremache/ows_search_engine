@@ -1014,6 +1014,17 @@
     
 
 
+    <!-- http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Bad -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Bad">
+        <rdf:type rdf:resource="http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Disque_triple_platine"/>
+        <musicontology2:contient rdf:resource="http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Beat_it"/>
+        <musicontology2:aPourAnneeApparitionAlbum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1987</musicontology2:aPourAnneeApparitionAlbum>
+        <musicontology2:aPourVente rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">499999</musicontology2:aPourVente>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Beat_it -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Beat_it">
@@ -1162,7 +1173,10 @@
     <!-- http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Michael_Jackson -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Michael_Jackson">
+        <rdf:type rdf:resource="http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Artiste"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Interprète"/>
         <musicontology2:estArtisteDe rdf:resource="http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Beat_it"/>
+        <musicontology2:interprete rdf:resource="http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Beat_it"/>
     </owl:NamedIndividual>
     
 
@@ -1218,6 +1232,7 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Album"/>
         <rdf:type rdf:resource="http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Disque_diamant"/>
         <musicontology2:contient rdf:resource="http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Waka_waka"/>
+        <musicontology2:aPourAnneeApparitionAlbum rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2010</musicontology2:aPourAnneeApparitionAlbum>
         <musicontology2:aPourVente rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100000000</musicontology2:aPourVente>
     </owl:NamedIndividual>
     
@@ -1238,6 +1253,9 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Smooth_Criminal">
         <musicontology2:aPourArtiste rdf:resource="http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Michael_Jackson"/>
+        <musicontology2:aPourGenre rdf:resource="http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Pop"/>
+        <musicontology2:appartient rdf:resource="http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Bad"/>
+        <musicontology2:estInterpretePar rdf:resource="http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Michael_Jackson"/>
     </owl:NamedIndividual>
     
 

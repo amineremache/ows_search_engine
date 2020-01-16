@@ -10,6 +10,8 @@ def filtering(variable):
         return True
 
 def search(request , criteria, query ):
+	if ' ' in query:
+		query = query.replace(' ','_')
 
 	g = rdflib.Graph()
 	g.parse("music.rdf")
@@ -36,6 +38,19 @@ def search(request , criteria, query ):
 			mstr = tmp[0]
 		new_artists.append(mstr)
 
+	res_groups = g.query("""
+		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+		PREFIX owl: <http://www.w3.org/2002/07/owl#>
+		PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+		PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+		PREFIX : <http://www.semanticweb.org/NOM/ontologies/2018/musicontology#>
+
+		SELECT DISTINCT ?s
+		WHERE
+		{ ?s a :Groupe }
+		""")
+
+	grps = [row[0].split('#')[1] for row in res_groups]
 
 	res_props = g.query("""
 		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -66,15 +81,38 @@ def search(request , criteria, query ):
 			SELECT ?album
 			WHERE {  ?chanson :""" + criteria +""" :""" + query +""" .?album :contient ?chanson }	
 			""")
-
+		albums_names = []
 		for row in qres.result:
 			print(row[0].split('#')[1])
+			albums_names.append(row[0].split('#')[1])
 		#print(g.predicates("<http://www.semanticweb.org/NOM/ontologies/2018/musicontology#Album>"))
 
-	data = { 
-	'list' : new_artists, 
-	'criterias' : props, 
-	'albums' : [ ('album1','genre1','artist1'), ('album2','genre2','artist2') ],
+
+
+
+	albums = []
+	for item in albums_names:
+		res_annee = g.query("""
+			PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+			PREFIX owl: <http://www.w3.org/2002/07/owl#>
+			PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+			PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+			PREFIX : <http://www.semanticweb.org/NOM/ontologies/2018/musicontology#>
+
+			Select ?value
+			Where {
+			:""" + item + """ :aPourVente ?value
 			}
+			""")
+		for row in res_annee:
+			albums.append((item,query,row[0][:]))
+
+	mlist = new_artists + grps
+	data = { 
+	'list' : mlist, 
+	'criterias' : props, 
+	'albums' : albums,
+			}
+	print(albums)
 
 	return render(request, 'index.html', data)

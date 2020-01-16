@@ -157,7 +157,7 @@
     choices: [ {% for item in list %} '{{item}}', {% endfor %} ],
     criteria: 'None',
     criterias: [ {% for c in criterias %} '{{c}}', {% endfor %} ],
-    description: [ {% for item in albums %} { 'name': '{{item.0}}', 'genre': '{{item.1}}', 'artist': '{{item.2}}' }, {% endfor %} ],  
+    description: [ {% for item in albums %} { 'name': '{{item.0}}', 'artist': '{{item.1}}', 'vente': '{{item.2}}' }, {% endfor %} ],  
 	},
 	methods: {
 		select_tab: function(selected) {
